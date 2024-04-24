@@ -4,21 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Analysis Output</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Code Analysis Output</h1>
-        <div class="chart-container">
-            <canvas id="codeComplexityChart"></canvas>
+
+        <!-- First quarter -->
+        <div class="quarter">
+            <h2>Code Complexity</h2>
+            <p>{{ analysis_output.code_complexity }}</p>
         </div>
-        <div class="chart-container">
-            <canvas id="codeDuplicationChart"></canvas>
+
+        <!-- Second quarter -->
+        <div class="quarter">
+            <h2>Code Coverage</h2>
+            <p>{{ analysis_output.code_coverage }}</p>
         </div>
-        <div id="issuesList"></div>
-        <div id="improvementsList"></div>
+
+        <!-- Third quarter -->
+        <div class="quarter">
+            <h2>Issues in the code</h2>
+            <ul>
+                {% for issue in analysis_output.issues.split(",") %}
+                    <li>{{ issue }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Fourth quarter -->
+        <div class="quarter">
+            <h2>Code Duplication</h2>
+            <p>{{ analysis_output.duplication_info }}</p>
+        </div>
+
     </div>
+
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
