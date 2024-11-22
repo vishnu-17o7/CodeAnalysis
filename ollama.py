@@ -5,7 +5,7 @@ ollama = Ollama(model="llama3")
 
 def analyze_code(user_code):
     prompt = ("1 : Calculate the complexity of the code,2: Determine the code coverage of the code,"
-              "3: Identify code duplication in the code,4: Find all the issues in the code" + 
+              "3: Identify code duplication in the code,4: Find all the issues  in the code" + 
               "Code : " + user_code + "Give the response in the same format 1. 2. 3. 4. only give text-based crisp and short answers for the given 4 prompts\nGive it in dictionary format in python. only generate {} part, no other sentences.\n")
     formatted_response = ollama.invoke(prompt)
     start_index = formatted_response.find("{")
@@ -28,7 +28,8 @@ def main():
         else:
             result = analyze_code(user_code)
             st.write("Analysis Results:")
-            st.write(result)
+            for key, value in result.items():
+                st.write(f"{key}: {value}")
 
 if __name__ == "__main__":
     main()
